@@ -472,4 +472,29 @@ footer{padding: 0px 15px}
 </a>
 </div>
   </body>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent the default form submission
+    
+      var form = e.target;
+      var formData = new FormData(form);
+    
+      // Send form data to the webhook URL
+      fetch('https://hook.us1.make.com/6904efmkh4k6dipg2lcgtx8cf5ihxnwq', {
+        method: 'POST',
+        body: formData
+      })
+      .then(function(response) {
+        if (response.ok) {
+          // Redirect to the thank you page
+          window.location.href = 'thankyou.html';
+        } else {
+          console.error('Error submitting form');
+        }
+      })
+      .catch(function(error) {
+        console.error('Error submitting form', error);
+      });
+    });
+    </script>
 </html>
