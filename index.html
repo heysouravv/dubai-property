@@ -124,7 +124,7 @@ footer{padding: 0px 15px}
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-4">
-      <form action="mail.php" method="post">
+      <form id="contactForm">
                 <div class="mb-3">
                     <label for="username" class="form-label">Name</label>
                     <input type="text" class="form-control" id="username" name="name" placeholder="Name" required="">
@@ -140,7 +140,6 @@ footer{padding: 0px 15px}
                 <div class="mb-3">
                     <label for="event" class="form-label">Reason for Inquiry</label>
                     <select class="form-control" name="purpose" id="purpose" required="">
-  <option value="">select your choice</option>
   <option value="Looking to Invest in Property" required="*">Looking to Invest in Property</option>
   <option value="Looking to Upgrade Lifestyle" required="*">Looking to Upgrade Lifestyle</option>
   <option value="Looking for a Second Home" required="*">Looking for a Second Home</option>
