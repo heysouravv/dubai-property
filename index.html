@@ -430,7 +430,7 @@ footer{padding: 0px 15px}
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
 </svg>
                 </button>
-        <form form id="contactForm">
+        <form id="modalContactForm">
                 <div class="mb-3">
                     <label for="username" class="form-label">Name</label>
                     <input type="text" class="form-control" id="username" name="name" placeholder="Name" required>
@@ -473,28 +473,42 @@ footer{padding: 0px 15px}
 </div>
   </body>
   <script>
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault(); // Prevent the default form submission
-    
-      var form = e.target;
-      var formData = new FormData(form);
-    
-      // Send form data to the webhook URL
-      fetch('https://hook.us1.make.com/6904efmkh4k6dipg2lcgtx8cf5ihxnwq', {
-        method: 'POST',
-        body: formData
-      })
-      .then(function(response) {
-        if (response.ok) {
-          // Redirect to the thank you page
-          window.location.href = 'thankyou.html';
-        } else {
-          console.error('Error submitting form');
-        }
-      })
-      .catch(function(error) {
-        console.error('Error submitting form', error);
+    function handleFormSubmit(formId) {
+      var form = document.getElementById(formId);
+      form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        var formData = new FormData(form);
+
+        // Send form data to the webhook URL
+        fetch('https://hook.us1.make.com/6904efmkh4k6dipg2lcgtx8cf5ihxnwq', {
+          method: 'POST',
+          body: formData
+        })
+        .then(function(response) {
+          if (response.ok) {
+            if (formId === 'modalContactForm') {
+              // Close the modal
+              var modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+              modal.hide();
+            }
+
+            // Redirect to the thank you page
+            window.location.href = 'thankyou.html';
+          } else {
+            console.error('Error submitting form');
+          }
+        })
+        .catch(function(error) {
+          console.error('Error submitting form', error);
+        });
       });
-    });
+    }
+
+    // Call the function for the main form
+    handleFormSubmit('contactForm');
+
+    // Call the function for the modal form
+    handleFormSubmit('modalContactForm');
     </script>
 </html>
